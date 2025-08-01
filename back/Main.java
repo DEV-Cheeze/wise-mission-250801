@@ -14,13 +14,13 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        BufferedReader br;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));;
         System.out.println("== 명언 앱 ==");
 
         WiseSayingService wService = new WiseSayingServiceImpl();
 
         while(true){
-            br = new BufferedReader(new InputStreamReader(System.in));
+
             String cmd = br.readLine();
             if(cmd.equals("종료")) {
                 System.out.println("명령) 종료");
@@ -29,12 +29,10 @@ public class Main {
                 System.out.println("명령) 등록");
                 System.out.print("명언 : ");
                 WiseSaying wiseSaying = new WiseSaying();
-                BufferedReader poemInput = new BufferedReader(new InputStreamReader(System.in));
-                String poem = poemInput.readLine();
+                String poem = br.readLine();
 
                 System.out.print("작가 : ");
-                BufferedReader authorInput = new BufferedReader(new InputStreamReader(System.in));
-                String author = authorInput.readLine();
+                String author = br.readLine();
 
                 wiseSaying.setPoem(poem);
                 wiseSaying.setAuthor(author);
@@ -47,7 +45,7 @@ public class Main {
                 List<WiseSaying> list = wService.viewAllWiseSaying();
                 System.out.println(
                         "번호 / 작가 / 명언\n" +
-                        "----------------------");
+                                "----------------------");
                 Collections.reverse(list);
                 for(WiseSaying ws : list) {
                     int id = ws.getId();
@@ -70,13 +68,11 @@ public class Main {
                     System.out.println("명언(기존) : " + wiseSaying.getPoem());
 
                     System.out.print("명언 : ");
-                    BufferedReader poemInput = new BufferedReader(new InputStreamReader(System.in));
-                    String poem = poemInput.readLine();
+                    String poem = br.readLine();
 
                     System.out.println("작가(기존) : " + wiseSaying.getAuthor());
                     System.out.print("작가 : ");
-                    BufferedReader authorInput = new BufferedReader(new InputStreamReader(System.in));
-                    String author = authorInput.readLine();
+                    String author = br.readLine();
 
                     wService.updateWiseSaying(editId, author, poem);
                 }catch (RuntimeException e){
